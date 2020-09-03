@@ -32,7 +32,7 @@ const ColorList = props =>{
               <ul>
                 {props.colors.colorArray.map(color => (
                   <Link to={"/show/" + color._id} key={color._id}>
-                    <li key={color._id}>  
+                    <li key={color._id}>
                       {color.mainColor}
                       {color.subColor}
                       {color.accentColor}

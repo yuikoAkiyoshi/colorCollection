@@ -48,7 +48,7 @@ const dbUrl = 'mongodb://localhost/colorCollection' // dbの名前指定
     //PUTリクエストに対処
     app.put('/api/colors', (request, response) => {
         const { id, mainColor, subColor, accentColor, textColor  } = request.body  // updateするキャラクターのidをリクエストから取得
-        Color.findByIdAndUpdate(id, { $set: 
+        Color.findByIdAndUpdate(id, { $set:
             {
                 "mainColor": mainColor,
                 "subColor": subColor,

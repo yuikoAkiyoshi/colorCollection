@@ -108,7 +108,7 @@ if(editFlag){
   }else{
   DOM = (
     props.colors.colorArray.map(color => (
-    <li key={color._id}>  
+    <li key={color._id}>
         {color.mainColor}
         {color.subColor}
         {color.accentColor}
