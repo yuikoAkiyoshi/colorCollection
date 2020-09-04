@@ -9,19 +9,19 @@ export const RECEIVE_DATA_SUCCESS = 'RECEIVE_DATA_SUCCESS'
 export const RECEIVE_DATA_FAILED  = 'RECEIVE_DATA_FAILED'
 
 // action creaters
-export const changeMainColor = mainColor => ({
+export const changeMainColor = (mainColor: string) => ({
   type: CHANGE_MAINCOLOR,
   mainColor,
 })
-export const changeSubColor = subColor => ({
+export const changeSubColor = (subColor: string) => ({
   type: CHANGE_SUBCOLOR,
   subColor,
 })
-export const changeAccentColor = accentColor => ({
+export const changeAccentColor = (accentColor: string) => ({
   type: CHANGE_ACCENTCOLOR,
   accentColor,
 })
-export const changeTextColor = textColor => ({
+export const changeTextColor = (textColor: string) => ({
   type: CHANGE_TEXTCOLOR,
   textColor,
 })
@@ -31,7 +31,7 @@ export const initializeForm = () => ({
 export const requestData = () => ({
   type: REQUEST_DATA,
 })
-export const receiveDataSuccess = colorArray => ({
+export const receiveDataSuccess = (colorArray: object) => ({
   type: RECEIVE_DATA_SUCCESS,
   colorArray,
 })

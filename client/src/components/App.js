@@ -6,6 +6,7 @@ import ColorList from './ColorList'
 import ColorShow from './ColorShow'
 import ColorNew from './ColorNew'
 
+
 function App({ store }){
     return (
         <Provider store={store}>

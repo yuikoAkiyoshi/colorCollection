@@ -14,7 +14,7 @@ const initialState = {
     },
 }
 
-const formReducer = (state = initialState.form, action) => {
+const formReducer = (state = initialState.form, action: { type: any; mainColor: any; subColor: any; accentColor: any; textColor: any }) => {
     switch (action.type) {
         case CHANGE_MAINCOLOR:
             return {
@@ -43,7 +43,7 @@ const formReducer = (state = initialState.form, action) => {
     }
 }
 
-const colorsReducer = (state = initialState.colors, action) => {
+const colorsReducer = (state = initialState.colors, action: { type: any; colorArray: any }) => {
     switch (action.type) {
         case REQUEST_DATA:
             return {
