@@ -4,8 +4,15 @@ import axios from 'axios'
 import { Link } from "react-router-dom";
 import { initializeForm, requestData, receiveDataSuccess, receiveDataFailed } from '../actions'
 
+type ColorNewProps = {
+  requestData: () => void;
+  receiveDataSuccess: (arg0: any) => void;
+  initializeForm: () => void;
+  receiveDataFailed: () => void;
+}
 
-const ColorNew = (props) => {
+
+const ColorNew = (props: ColorNewProps) => {
   const [mainColor, setMainColor] = useState("");
   const [subColor, setSubColor] = useState("");
   const [accentColor, setAccentColor] = useState("");
@@ -55,16 +62,16 @@ const ColorNew = (props) => {
   )
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state: { colors: any; }) => {
   return {
     colors: state.colors
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch: (arg0: { type: string; colorArray?: object; }) => any) => {
   return {
     requestData: () => dispatch(requestData()),
-    receiveDataSuccess: (colorArray) => dispatch(receiveDataSuccess(colorArray)),
+    receiveDataSuccess: (colorArray: object) => dispatch(receiveDataSuccess(colorArray)),
     initializeForm: () => dispatch(initializeForm()),
     receiveDataFailed: () => dispatch(receiveDataFailed())
   };

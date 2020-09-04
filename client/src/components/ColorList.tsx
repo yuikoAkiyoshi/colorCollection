@@ -4,7 +4,17 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { requestData, receiveDataSuccess, receiveDataFailed } from '../actions'
 
-const ColorList = props =>{
+type ColorListProps = {
+  requestData: ()=>void;
+  receiveDataSuccess: (arg0: any) => void;
+  receiveDataFailed: () => void;
+  colors: { 
+    isFetching: boolean;
+    colorArray: any[];
+  };
+}
+
+const ColorList = (props: ColorListProps) =>{
 
   useEffect(() => {
   //read
@@ -47,16 +57,16 @@ const ColorList = props =>{
   )
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state: { colors: any; }) => {
   return {
     colors: state.colors
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch: (arg0: { type: string; colorArray?: object; }) => any) => {
   return {
     requestData: () => dispatch(requestData()),
-    receiveDataSuccess: (colorArray) => dispatch(receiveDataSuccess(colorArray)),
+    receiveDataSuccess: (colorArray: object) => dispatch(receiveDataSuccess(colorArray)),
     receiveDataFailed: () => dispatch(receiveDataFailed())
   };
 };

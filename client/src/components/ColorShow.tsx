@@ -4,7 +4,19 @@ import axios from 'axios'
 import { Link } from "react-router-dom"
 import { requestData, receiveDataSuccess, receiveDataFailed } from '../actions'
 
-const ColorShow = (props) => {
+type ColorShowProps = {
+  requestData: () => void;
+  receiveDataSuccess: (arg0: any) => void;
+  receiveDataFailed: () => void;
+  id: any;
+  colors: { 
+    colorArray: { 
+      map: (arg0: (color: any) => JSX.Element) => JSX.Element ;
+    }
+  }
+}
+
+const ColorShow = (props: ColorShowProps) => {
 const [id, setId] = useState()
 const [mainColor, setMainColor] = useState()
 const [subColor, setSubColor] = useState()
@@ -19,7 +31,7 @@ const fetchColor = () => {
   axios.get('/api/colors/')
   .then(response => {
     const _colorArray = response.data
-    const targetColor = _colorArray.filter((color)=>color._id===props.id)
+    const targetColor = _colorArray.filter((color: { _id: any })=>color._id===props.id)
     props.receiveDataSuccess(targetColor)// データをstoreに保存するとともにisFetchingをfalseに
   })
   .catch(err => {
@@ -31,7 +43,7 @@ fetchColor();
 }, []);
 
   //update
-  const handleUpdateColor = id => {
+  const handleUpdateColor = (id: undefined) => {
     props.requestData()
     axios.put('/api/colors', {
       id,
@@ -42,7 +54,7 @@ fetchColor();
     })
     .then(response => {
       const _colorArray = response.data
-      const targetColor = _colorArray.filter((color)=>color._id===props.id)
+      const targetColor = _colorArray.filter((color: { _id: any })=>color._id===props.id)
       props.receiveDataSuccess(targetColor)// データをstoreに保存するとともにisFetchingをfalseに
       setEditFlag(false)
     })
@@ -54,7 +66,7 @@ fetchColor();
 
 
 //delete
-const handleDeleteColor = id => {
+const handleDeleteColor = (id: any) => {
   props.requestData()
   axios({
     method: 'delete',
@@ -73,7 +85,7 @@ const handleDeleteColor = id => {
   })
 }
 
-const handleEditFlag =(id,mainColor,subColor,accentColor,textColor)=>{
+const handleEditFlag =(id: React.SetStateAction<undefined>,mainColor: React.SetStateAction<undefined>,subColor: React.SetStateAction<undefined>,accentColor: React.SetStateAction<undefined>,textColor: React.SetStateAction<undefined>)=>{
   setId(id)
   setMainColor(mainColor)
   setSubColor(subColor)
@@ -88,19 +100,19 @@ if(editFlag){
     <div>
             <label>
               メインカラー:
-              <input defaultValue={mainColor} onChange={e => setMainColor(e.target.value)} />
+              <input defaultValue={mainColor} onChange={(e:any) => setMainColor(e.target.value)} />
             </label>
             <label>
               サブカラー:
-              <input defaultValue={subColor} onChange={e => setSubColor(e.target.value)} />
+              <input defaultValue={subColor} onChange={(e:any) => setSubColor(e.target.value)} />
             </label>
             <label>
               アクセントカラー:
-              <input defaultValue={accentColor} onChange={e => setAccentColor(e.target.value)} />
+              <input defaultValue={accentColor} onChange={(e:any) => setAccentColor(e.target.value)} />
             </label>
             <label>
               テキストカラー:
-              <input defaultValue={textColor} onChange={e => setTextColor(e.target.value)} />
+              <input defaultValue={textColor} onChange={(e:any) => setTextColor(e.target.value)} />
             </label>
             <button onClick={() => handleUpdateColor(id)}>submit</button>
           </div>
@@ -128,7 +140,7 @@ return (
   )
 }
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state: { colors: any }, ownProps: { match: { params: { id: any } } }) => {
     const id = ownProps.match.params.id;
   return {
     id: id,
@@ -136,10 +148,10 @@ const mapStateToProps = (state, ownProps) => {
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch: (arg0: { type: string; colorArray?: object }) => any) => {
   return {
     requestData: () => dispatch(requestData()),
-    receiveDataSuccess: (colorArray) => dispatch(receiveDataSuccess(colorArray)),
+    receiveDataSuccess: (colorArray: object) => dispatch(receiveDataSuccess(colorArray)),
     receiveDataFailed: () => dispatch(receiveDataFailed())
   };
 };
