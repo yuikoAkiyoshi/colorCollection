@@ -1,0 +1,31 @@
+.colorList {
+
+    &__cards {
+        display: -ms-grid;
+        display: grid;
+        -ms-grid-columns: (1fr) [3];
+        grid-template-columns: repeat(3, 1fr);
+        grid-column-gap: 2rem;
+        -webkit-column-gap: 2rem;
+        -moz-column-gap: 2rem;
+        column-gap: 2rem;
+        grid-row-gap: 3rem;
+        row-gap: 3rem;
+        margin-top: 32px;
+
+        @media screen and (max-width: 960px) {
+        grid-template-columns: repeat(2, 1fr);
+        }
+        @media screen and (max-width: 414px) {
+        grid-template-columns: repeat(1, 1fr);
+        }
+    }
+
+    &__card {
+    position: relative;
+    height: 420px;
+    background-color: #fff;
+    box-shadow: 0 6px 15px rgba(36, 37, 38, 0.08);
+    border-radius: 16px;
+    }
+}
