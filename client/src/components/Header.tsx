@@ -1,33 +1,31 @@
-import React from 'react'
+import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-
-const Header = () =>{
-
+const Header = () => {
   return (
     <>
-    <Wrapper>
+      <Wrapper>
         <Inner>
-        <Link to="/">
+          <Link to="/">
             <Logo>ColorCollection</Logo>
-        </Link>
-        <Link to="/new">
+          </Link>
+          <Link to="/new">
             <Item>New</Item>
-        </Link>
+          </Link>
         </Inner>
-    </Wrapper>
+      </Wrapper>
     </>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;
 
 const Wrapper = styled.div`
   position: fixed;
   width: 100%;
   height: 88px;
-  background: rgba(255,255,255,.9);
+  background: rgba(255, 255, 255, 0.9);
   z-index: 10;
 `;
 const Inner = styled.div`
@@ -37,7 +35,7 @@ const Inner = styled.div`
   max-width: 790px;
   margin: auto;
   padding: 0 12px;
-  line-height: 88px
+  line-height: 88px;
 `;
 const Logo = styled.div`
   font-size: 20px;
@@ -45,7 +43,7 @@ const Logo = styled.div`
   color: #333;
 
   ::before {
-    content:'';
+    content: "";
     display: inline-block;
     margin-right: 10px;
     width: 20px;

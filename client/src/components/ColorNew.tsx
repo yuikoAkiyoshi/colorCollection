@@ -1,18 +1,22 @@
-import React, { useState } from 'react'
-import { connect } from "react-redux"
-import axios from 'axios'
+import React, { useState } from "react";
+import { connect } from "react-redux";
+import axios from "axios";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-import { initializeForm, requestData, receiveDataSuccess, receiveDataFailed } from '../actions'
+import {
+  initializeForm,
+  requestData,
+  receiveDataSuccess,
+  receiveDataFailed,
+} from "../actions";
 
 type ColorNewProps = {
   requestData: () => void;
   receiveDataSuccess: (arg0: any) => void;
   initializeForm: () => void;
   receiveDataFailed: () => void;
-}
-
+};
 
 const ColorNew = (props: ColorNewProps) => {
   const [mainColor, setMainColor] = useState("");
@@ -20,45 +24,66 @@ const ColorNew = (props: ColorNewProps) => {
   const [accentColor, setAccentColor] = useState("");
   const [textColor, setTextColor] = useState("");
 
-    const handleSubmit = () => {
-        props.requestData()
-        axios.post('/api/colors', {
-            mainColor,
-            subColor,
-            accentColor,
-            textColor,
-        })  // オブジェクトをサーバーにPOST
-        .then(response => {
-            const colorArray = response.data
-            props.receiveDataSuccess(colorArray)
-            props.initializeForm()  // submit後はフォームを初期化
-        })
-        .catch(err => {
-            console.error(new Error(err))
-            props.receiveDataFailed()
-        })
-    }
+  const handleSubmit = () => {
+    props.requestData();
+    axios
+      .post("/api/colors", {
+        mainColor,
+        subColor,
+        accentColor,
+        textColor,
+      }) // オブジェクトをサーバーにPOST
+      .then((response) => {
+        const colorArray = response.data;
+        props.receiveDataSuccess(colorArray);
+        props.initializeForm(); // submit後はフォームを初期化
+      })
+      .catch((err) => {
+        console.error(new Error(err));
+        props.receiveDataFailed();
+      });
+  };
 
   return (
     <div>
       <EditModal>
         <EditModalItem>
           <span>main</span>
-          <input type="color" defaultValue={mainColor} onChange={(e:any) => setMainColor(e.target.value)} />
+          <input
+            type="color"
+            defaultValue={mainColor}
+            onChange={(e: any) => setMainColor(e.target.value)}
+          />
         </EditModalItem>
         <EditModalItem>
           <span>sub</span>
-          <input type="color" defaultValue={subColor} onChange={(e:any) => setSubColor(e.target.value)} />
+          <input
+            type="color"
+            defaultValue={subColor}
+            onChange={(e: any) => setSubColor(e.target.value)}
+          />
         </EditModalItem>
         <EditModalItem>
           <span>accent</span>
-          <input type="color" defaultValue={accentColor} onChange={(e:any) => setAccentColor(e.target.value)} />
+          <input
+            type="color"
+            defaultValue={accentColor}
+            onChange={(e: any) => setAccentColor(e.target.value)}
+          />
         </EditModalItem>
         <EditModalItem>
           <span>text</span>
-          <input type="color" defaultValue={textColor} onChange={(e:any) => setTextColor(e.target.value)} />
+          <input
+            type="color"
+            defaultValue={textColor}
+            onChange={(e: any) => setTextColor(e.target.value)}
+          />
         </EditModalItem>
-        <EditModalButton><Link to={"/"}><button onClick={() => handleSubmit()}>submit</button></Link></EditModalButton>
+        <EditModalButton>
+          <Link to={"/"}>
+            <button onClick={() => handleSubmit()}>submit</button>
+          </Link>
+        </EditModalButton>
       </EditModal>
       <Card style={{ backgroundColor: mainColor }}>
         <SubColor style={{ backgroundColor: subColor }}>
@@ -67,34 +92,35 @@ const ColorNew = (props: ColorNewProps) => {
         </SubColor>
         <ButtonWrapper>
           <Link to={"/"}>
-            <Button style={{ color: textColor, backgroundColor: subColor }}>back</Button>
+            <Button style={{ color: textColor, backgroundColor: subColor }}>
+              back
+            </Button>
           </Link>
         </ButtonWrapper>
       </Card>
     </div>
-  )
-}
+  );
+};
 
-const mapStateToProps = (state: { colors: any; }) => {
+const mapStateToProps = (state: { colors: any }) => {
   return {
-    colors: state.colors
+    colors: state.colors,
   };
 };
 
-const mapDispatchToProps = (dispatch: (arg0: { type: string; colorArray?: object; }) => any) => {
+const mapDispatchToProps = (
+  dispatch: (arg0: { type: string; colorArray?: object }) => any
+) => {
   return {
     requestData: () => dispatch(requestData()),
-    receiveDataSuccess: (colorArray: object) => dispatch(receiveDataSuccess(colorArray)),
+    receiveDataSuccess: (colorArray: object) =>
+      dispatch(receiveDataSuccess(colorArray)),
     initializeForm: () => dispatch(initializeForm()),
-    receiveDataFailed: () => dispatch(receiveDataFailed())
+    receiveDataFailed: () => dispatch(receiveDataFailed()),
   };
 };
 
-
-
-
-export default connect(mapStateToProps, mapDispatchToProps)(ColorNew)
-
+export default connect(mapStateToProps, mapDispatchToProps)(ColorNew);
 
 const Card = styled.div`
   position: relative;
@@ -160,7 +186,7 @@ const EditModal = styled.div`
   height: 200px;
   opacity: 0.9;
   border-radius: 16px;
-  box-shadow: 0 6px 15px rgba(36,37,38,0.1);
+  box-shadow: 0 6px 15px rgba(36, 37, 38, 0.1);
 `;
 const EditModalItem = styled.label`
   display: flex;
