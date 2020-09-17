@@ -9,13 +9,21 @@ import MainVisual from "./MainVisual";
 
 import "../css/colorList.scss";
 
+interface ColorArrayType {
+  _id: string,
+  mainColor: string,
+  subColor: string,
+  accentColor: string,
+  textColor: string,
+}
+
 type ColorListProps = {
   requestData: () => void;
-  receiveDataSuccess: (arg0: any) => void;
+  receiveDataSuccess: (colorArray: object) => void;
   receiveDataFailed: () => void;
   colors: {
     isFetching: boolean;
-    colorArray: any[];
+    colorArray: ColorArrayType[];
   };
 };
 
@@ -71,7 +79,7 @@ const ColorList = (props: ColorListProps) => {
   );
 };
 
-const mapStateToProps = (state: { colors: any }) => {
+const mapStateToProps = (state: { colors: any; }) => {
   return {
     colors: state.colors,
   };

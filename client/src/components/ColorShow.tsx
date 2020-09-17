@@ -6,24 +6,31 @@ import styled from "styled-components";
 
 import { requestData, receiveDataSuccess, receiveDataFailed } from "../actions";
 
+interface ColorArrayType {
+  id: string,
+  _id: string,
+  mainColor: string,
+  subColor: string,
+  accentColor: string,
+  textColor: string,
+}
+
 type ColorShowProps = {
   requestData: () => void;
-  receiveDataSuccess: (arg0: any) => void;
+  receiveDataSuccess: (colorArray: object) => void;
   receiveDataFailed: () => void;
-  id: any;
+  id: string;
   colors: {
-    colorArray: {
-      map: (arg0: (color: any) => JSX.Element) => JSX.Element;
-    };
+    colorArray: ColorArrayType[];
   };
 };
 
 const ColorShow = (props: ColorShowProps) => {
-  const [id, setId] = useState();
-  const [mainColor, setMainColor] = useState();
-  const [subColor, setSubColor] = useState();
-  const [accentColor, setAccentColor] = useState();
-  const [textColor, setTextColor] = useState();
+  const [id, setId] = useState<string>();
+  const [mainColor, setMainColor] = useState<string>();
+  const [subColor, setSubColor] = useState<string>();
+  const [accentColor, setAccentColor] = useState<string>();
+  const [textColor, setTextColor] = useState<string>();
   const [editFlag, setEditFlag] = useState(false);
 
   useEffect(() => {
@@ -35,7 +42,7 @@ const ColorShow = (props: ColorShowProps) => {
         .then((response) => {
           const _colorArray = response.data;
           const targetColor = _colorArray.filter(
-            (color: { _id: any }) => color._id === props.id
+            (color: { _id: string }) => color._id === props.id
           );
           props.receiveDataSuccess(targetColor); // データをstoreに保存するとともにisFetchingをfalseに
         })
@@ -48,7 +55,7 @@ const ColorShow = (props: ColorShowProps) => {
   }, []);
 
   //update
-  const handleUpdateColor = (id: undefined) => {
+  const handleUpdateColor = (id: string | undefined) => {
     props.requestData();
     axios
       .put("/api/colors", {
@@ -61,7 +68,7 @@ const ColorShow = (props: ColorShowProps) => {
       .then((response) => {
         const _colorArray = response.data;
         const targetColor = _colorArray.filter(
-          (color: { _id: any }) => color._id === props.id
+          (color: { _id: string }) => color._id === props.id
         );
         props.receiveDataSuccess(targetColor); // データをstoreに保存するとともにisFetchingをfalseに
         setEditFlag(false);
@@ -73,7 +80,7 @@ const ColorShow = (props: ColorShowProps) => {
   };
 
   //delete
-  const handleDeleteColor = (id: any) => {
+  const handleDeleteColor = (id: string) => {
     props.requestData();
     axios({
       method: "delete",
@@ -93,11 +100,11 @@ const ColorShow = (props: ColorShowProps) => {
   };
 
   const handleEditFlag = (
-    id: React.SetStateAction<undefined>,
-    mainColor: React.SetStateAction<undefined>,
-    subColor: React.SetStateAction<undefined>,
-    accentColor: React.SetStateAction<undefined>,
-    textColor: React.SetStateAction<undefined>
+    id: React.SetStateAction<string | undefined>,
+    mainColor: React.SetStateAction<string | undefined>,
+    subColor: React.SetStateAction<string | undefined>,
+    accentColor: React.SetStateAction<string | undefined>,
+    textColor: React.SetStateAction<string | undefined>
   ) => {
     setId(id);
     setMainColor(mainColor);
@@ -116,7 +123,7 @@ const ColorShow = (props: ColorShowProps) => {
           <input
             type="color"
             defaultValue={mainColor}
-            onChange={(e: any) => setMainColor(e.target.value)}
+            onChange={(e) => setMainColor(e.target.value)}
           />
         </EditModalItem>
         <EditModalItem>
@@ -124,7 +131,7 @@ const ColorShow = (props: ColorShowProps) => {
           <input
             type="color"
             defaultValue={subColor}
-            onChange={(e: any) => setSubColor(e.target.value)}
+            onChange={(e) => setSubColor(e.target.value)}
           />
         </EditModalItem>
         <EditModalItem>
@@ -132,7 +139,7 @@ const ColorShow = (props: ColorShowProps) => {
           <input
             type="color"
             defaultValue={accentColor}
-            onChange={(e: any) => setAccentColor(e.target.value)}
+            onChange={(e) => setAccentColor(e.target.value)}
           />
         </EditModalItem>
         <EditModalItem>
@@ -140,7 +147,7 @@ const ColorShow = (props: ColorShowProps) => {
           <input
             type="color"
             defaultValue={textColor}
-            onChange={(e: any) => setTextColor(e.target.value)}
+            onChange={(e) => setTextColor(e.target.value)}
           />
         </EditModalItem>
         <EditModalButton>
@@ -206,7 +213,7 @@ const ColorShow = (props: ColorShowProps) => {
 
 const mapStateToProps = (
   state: { colors: any },
-  ownProps: { match: { params: { id: any } } }
+  ownProps: { match: { params: { id: string } } }
 ) => {
   const id = ownProps.match.params.id;
   return {
