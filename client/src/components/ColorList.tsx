@@ -1,91 +1,96 @@
-import React, { useEffect }from 'react'
-import axios from 'axios'
-import { connect } from "react-redux"
-import { Link } from "react-router-dom"
+import React, { useEffect } from "react";
+import axios from "axios";
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { requestData, receiveDataSuccess, receiveDataFailed } from '../actions'
+import { requestData, receiveDataSuccess, receiveDataFailed } from "../actions";
 
-import MainVisual from "./MainVisual"
+import MainVisual from "./MainVisual";
 
-import "../css/colorList.scss"
+import "../css/colorList.scss";
 
 type ColorListProps = {
-  requestData: ()=>void;
+  requestData: () => void;
   receiveDataSuccess: (arg0: any) => void;
   receiveDataFailed: () => void;
-  colors: { 
+  colors: {
     isFetching: boolean;
     colorArray: any[];
   };
-}
+};
 
-const ColorList = (props: ColorListProps) =>{
-
+const ColorList = (props: ColorListProps) => {
   useEffect(() => {
-  //read
-  const fetchColor = () => {
-    props.requestData()  // axios.get()を呼ぶ前にisFetchingをtrueにしておく
-    axios.get('/api/colors')
-    .then(response => {
-      const _colorArray = response.data
-      props.receiveDataSuccess(_colorArray)// データをstoreに保存するとともにisFetchingをfalseに
-    })
-    .catch(err => {
-      console.error(new Error(err))
-      props.receiveDataFailed()  // isFetchingをfalseに
-    })
-  }
-  fetchColor();
-}, []);
+    //read
+    const fetchColor = () => {
+      props.requestData(); // axios.get()を呼ぶ前にisFetchingをtrueにしておく
+      axios
+        .get("/api/colors")
+        .then((response) => {
+          const _colorArray = response.data;
+          props.receiveDataSuccess(_colorArray); // データをstoreに保存するとともにisFetchingをfalseに
+        })
+        .catch((err) => {
+          console.error(new Error(err));
+          props.receiveDataFailed(); // isFetchingをfalseに
+        });
+    };
+    fetchColor();
+  }, []);
 
   return (
     <div>
-      <MainVisual/>
-      {
-        props.colors.isFetching  // isFetchingの値で分岐
-          ? <h2>Now Loading...</h2>  // データをFetch中ならばローディングアイコンを表示
-          : <div className="container">
+      <MainVisual />
+      {props.colors.isFetching ? ( // isFetchingの値で分岐
+        <h2>Now Loading...</h2> // データをFetch中ならばローディングアイコンを表示
+      ) : (
+        <div className="container">
           <section className="colorList">
-              <Cards>
-                  {props.colors.colorArray.map(color => {
-                    return (
-                      <Link to={"/show/" + color._id} key={color._id}>
-                        <Card style={{backgroundColor:color.mainColor}}>
-                                <SubColor style={{backgroundColor:color.subColor}}>
-                                  <AccentColor style={{backgroundColor:color.accentColor}} />
-                                  <Text style={{color:color.textColor}}>Sample Text</Text>
-                                </SubColor>
-                        </Card>
-                      </Link>
-                    )
-                  })}
-              </Cards>
-            </section>
-          </div>
-      }
+            <Cards>
+              {props.colors.colorArray.map((color) => {
+                return (
+                  <Link to={"/show/" + color._id} key={color._id}>
+                    <Card style={{ backgroundColor: color.mainColor }}>
+                      <SubColor style={{ backgroundColor: color.subColor }}>
+                        <AccentColor
+                          style={{ backgroundColor: color.accentColor }}
+                        />
+                        <Text style={{ color: color.textColor }}>
+                          Sample Text
+                        </Text>
+                      </SubColor>
+                    </Card>
+                  </Link>
+                );
+              })}
+            </Cards>
+          </section>
+        </div>
+      )}
     </div>
-  )
-}
+  );
+};
 
-const mapStateToProps = (state: { colors: any; }) => {
+const mapStateToProps = (state: { colors: any }) => {
   return {
-    colors: state.colors
+    colors: state.colors,
   };
 };
 
-const mapDispatchToProps = (dispatch: (arg0: { type: string; colorArray?: object; }) => any) => {
+const mapDispatchToProps = (
+  dispatch: (arg0: { type: string; colorArray?: object }) => any
+) => {
   return {
     requestData: () => dispatch(requestData()),
-    receiveDataSuccess: (colorArray: object) => dispatch(receiveDataSuccess(colorArray)),
-    receiveDataFailed: () => dispatch(receiveDataFailed())
+    receiveDataSuccess: (colorArray: object) =>
+      dispatch(receiveDataSuccess(colorArray)),
+    receiveDataFailed: () => dispatch(receiveDataFailed()),
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ColorList)
+export default connect(mapStateToProps, mapDispatchToProps)(ColorList);
 
-
-
-const Cards =styled.div`
+const Cards = styled.div`
       display: -ms-grid;
       display: grid;
       -ms-grid-columns: (1fr) [3];
@@ -106,8 +111,7 @@ const Cards =styled.div`
       }
   }
 }
-;`
-
+`;
 const Card = styled.div`
   display: flex;
   algin-item: center;

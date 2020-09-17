@@ -1,14 +1,14 @@
 body {
-    background: #f6f6f6;
-    color: #333435;
+  background: #f6f6f6;
+  color: #333435;
 }
 
 .container {
-    width: 80%;
-    max-width: 960px;
-    margin: 0 auto;
-    padding-bottom: 64px;
-    &--small {
-      max-width: 720px;
-    }
+  width: 80%;
+  max-width: 960px;
+  margin: 0 auto;
+  padding-bottom: 64px;
+  &--small {
+    max-width: 720px;
   }
+}
