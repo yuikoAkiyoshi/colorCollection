@@ -13,7 +13,7 @@ import {
 
 type ColorNewProps = {
   requestData: () => void;
-  receiveDataSuccess: (arg0: any) => void;
+  receiveDataSuccess: (colorArray: object) => void;
   initializeForm: () => void;
   receiveDataFailed: () => void;
 };
@@ -52,7 +52,7 @@ const ColorNew = (props: ColorNewProps) => {
           <input
             type="color"
             defaultValue={mainColor}
-            onChange={(e: any) => setMainColor(e.target.value)}
+            onChange={(e) => setMainColor(e.target.value)}
           />
         </EditModalItem>
         <EditModalItem>
@@ -60,7 +60,7 @@ const ColorNew = (props: ColorNewProps) => {
           <input
             type="color"
             defaultValue={subColor}
-            onChange={(e: any) => setSubColor(e.target.value)}
+            onChange={(e) => setSubColor(e.target.value)}
           />
         </EditModalItem>
         <EditModalItem>
@@ -68,7 +68,7 @@ const ColorNew = (props: ColorNewProps) => {
           <input
             type="color"
             defaultValue={accentColor}
-            onChange={(e: any) => setAccentColor(e.target.value)}
+            onChange={(e) => setAccentColor(e.target.value)}
           />
         </EditModalItem>
         <EditModalItem>
@@ -76,7 +76,7 @@ const ColorNew = (props: ColorNewProps) => {
           <input
             type="color"
             defaultValue={textColor}
-            onChange={(e: any) => setTextColor(e.target.value)}
+            onChange={(e) => setTextColor(e.target.value)}
           />
         </EditModalItem>
         <EditModalButton>
