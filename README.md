@@ -1,4 +1,4 @@
-# colorCollection
+# ColorCollection
 react+redux+typescript+express+mongoで作成したサイト
 好きな配色をストックすることができます。
 
@@ -23,7 +23,7 @@ react+redux+typescript+express+mongoで作成したサイト
   - node.js
   - express
 - DB
-  mongoDB
+  - mongoDB
 
 # URL
 https://colorcollection.herokuapp.com/
