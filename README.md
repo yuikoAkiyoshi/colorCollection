@@ -1,6 +1,7 @@
 # ColorCollection
 react+redux+typescript+express+mongoで作成したサイト
 好きな配色をストックすることができます。
+![colorcollection](https://user-images.githubusercontent.com/54488985/93583597-0b402d80-f9df-11ea-8390-f4b688ce304d.png)
 
 # 開発
 - フロント
